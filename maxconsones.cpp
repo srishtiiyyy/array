@@ -12,7 +12,7 @@ int maxones(vector<int>arr){
             cnt=0;
         }
     }
-    return cnt;
+    return maxi;
 }
 int main(){
     int n;
