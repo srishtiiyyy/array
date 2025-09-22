@@ -2,32 +2,51 @@
 using namespace std;
 
 /*
-    Function to merge two halves and count inversions
+Problem: Count Inversions in an Array
+-------------------------------------
+An inversion is a pair (i, j) such that:
+   - i < j
+   - arr[i] > arr[j]
+
+We want to count the total number of such inversions.
+
+Example:
+Input: arr = [2, 4, 1, 3, 5]
+Output: 3
+Explanation:
+Inversions are (2,1), (4,1), (4,3).
+-------------------------------------
+We solve it using a modified Merge Sort in O(n log n).
+*/
+
+/*
+    Function to merge two halves and count cross inversions.
     Left half: arr[l..mid]
     Right half: arr[mid+1..r]
 */
 long long mergeAndCount(vector<int>& arr, int l, int mid, int r) {
     long long invCount = 0;
 
-    // Temp arrays
+    // Create temporary arrays for left and right halves
     vector<int> left(arr.begin() + l, arr.begin() + mid + 1);
     vector<int> right(arr.begin() + mid + 1, arr.begin() + r + 1);
 
     int i = 0, j = 0, k = l;
     int n1 = left.size(), n2 = right.size();
 
+    // Merge process (like in merge sort)
     while (i < n1 && j < n2) {
         if (left[i] <= right[j]) {
             arr[k++] = left[i++];
         } else {
-            // Inversion found: left[i] > right[j]
+            // Inversion: left[i] > right[j]
             arr[k++] = right[j++];
             invCount += (n1 - i);  
-            // All remaining elements in left[] are greater than right[j]
+            // Because all remaining elements in left[] are > right[j]
         }
     }
 
-    // Copy remaining elements
+    // Copy remaining elements from left[] and right[]
     while (i < n1) arr[k++] = left[i++];
     while (j < n2) arr[k++] = right[j++];
 
@@ -35,7 +54,7 @@ long long mergeAndCount(vector<int>& arr, int l, int mid, int r) {
 }
 
 /*
-    Recursive function to apply merge sort and count inversions
+    Recursive function that applies merge sort and counts inversions
 */
 long long mergeSortAndCount(vector<int>& arr, int l, int r) {
     long long invCount = 0;
