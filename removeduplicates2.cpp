@@ -5,7 +5,7 @@
 ------------------------------------------------------------
 1️⃣ Problem I: Remove all duplicates (each element appears once)
 2️⃣ Problem II: Allow each element to appear at most twice
-------------------------------------------------------------
+-------------------------------
 */
 
 #include <bits/stdc++.h>
